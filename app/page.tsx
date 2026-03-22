@@ -4,7 +4,7 @@ import { useState } from "react";
 import dynamic from "next/dynamic";
 import ConflictPanel from "../components/ConflictPanel";
 
-const Map = dynamic(() => import("../components/Map"), {
+const Map = dynamic(() => import("../components/map/Map"), {
   ssr: false,
   loading: () => <div className="w-full h-screen bg-[#020617]" />
 });
@@ -46,7 +46,7 @@ export default function Home() {
       <div className="absolute inset-0 z-0">
         <Map 
           onSelectConflict={handleSelect} 
-          onMoveEnd={handleMapMoveEnd} // Nová prop z předchozího kroku
+          
           isDimmed={isPanelOpen} // Mapa ztmavne až ve chvíli, kdy vyjede panel
           selectedId={selectedConflictId} 
         />
