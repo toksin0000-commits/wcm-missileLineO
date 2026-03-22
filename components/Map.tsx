@@ -37,26 +37,26 @@ function MapController({ selectedId, onAnimationComplete }: { selectedId: string
 function AttackLines({ selectedId, colors }: { selectedId: string | null, colors: any }) {
   if (!selectedId) return null;
 
-  const SHIP_SIZE = 15; 
+  const SHIP_SIZE = 15;
 
   const attacks: Record<string, { from: [number, number], to: [number, number], size?: number, rotation?: number, duration: string, color?: string }[]> = {
     ukraine: [
-      { from: [54.00, 38.00], to: [50.50, 30.65], size: 13, rotation: 140, duration: "2s", color: "#FF5555" }, 
-      { from: [50.59, 36.58], to: [50.05, 36.27], size: 10, rotation: 110, duration: "4s", color: "#FFAAAA" }, 
-      { from: [47.23, 39.70], to: [48.46, 35.04], size: 12, rotation: 208, duration: "3s" }, 
+      { from: [54.00, 38.00], to: [50.50, 30.65], size: 13, rotation: 140, duration: "2s", color: "#FF5555" },
+      { from: [50.59, 36.58], to: [50.05, 36.27], size: 10, rotation: 110, duration: "4s", color: "#FFAAAA" },
+      { from: [47.23, 39.70], to: [48.46, 35.04], size: 12, rotation: 208, duration: "3s" },
       { from: [44.51, 34.16], to: [46.48, 30.72], size: 12, rotation: 220, duration: "3.5s" },
-      { from: [50.45, 30.52], to: [55.75, 37.61], size: 12, rotation: 310, duration: "3s", color: "#0057B7" }, 
-      { from: [49.99, 36.23], to: [51.67, 39.18], size: 12, rotation: 320, duration: "2.5s", color: "#0057B7" }, 
+      { from: [50.45, 30.52], to: [55.75, 37.61], size: 12, rotation: 310, duration: "3s", color: "#0057B7" },
+      { from: [49.99, 36.23], to: [51.67, 39.18], size: 12, rotation: 320, duration: "2.5s", color: "#0057B7" },
     ],
     "israel-iran": [
-      { from: [35.68, 51.38], to: [32.20, 35.20], size: 10, rotation: 160, duration: "2.5s", color: "#39FF14" }, 
-      { from: [32.66, 51.67], to: [32.79, 34.98], size: 10, rotation: 185, duration: "2.5s", color: "#1FBD00" }, 
-      { from: [34.50, 47.50], to: [36.19, 44.00], size: 12, rotation: 215, duration: "1.5s", color: "#39FF14" }, 
-      { from: [32.00, 48.00], to: [33.51, 36.27], size: 13, rotation: 190, duration: "5s", color: "#39FF14" },  
+      { from: [35.68, 51.38], to: [32.20, 35.20], size: 10, rotation: 160, duration: "2.5s", color: "#39FF14" },
+      { from: [32.66, 51.67], to: [32.79, 34.98], size: 10, rotation: 185, duration: "2.5s", color: "#1FBD00" },
+      { from: [34.50, 47.50], to: [36.19, 44.00], size: 12, rotation: 215, duration: "1.5s", color: "#39FF14" },
+      { from: [32.00, 48.00], to: [33.51, 36.27], size: 13, rotation: 190, duration: "5s", color: "#39FF14" },
       { from: [30.00, 50.00], to: [29.55, 34.95], size: 10, rotation: 185, duration: "3s" },
-      { from: [32.08, 34.78], to: [35.55, 50.80], size: 12, rotation: 345, duration: "3s", color: "#0038B8" }, 
-      { from: [31.04, 34.85], to: [32.60, 51.00], size: 10, rotation: 355, duration: "2.8s", color: "#0038B8" }, 
-      { from: [26.50, 54.00], to: [29.00, 56.00], size: 10, rotation: 310, duration: "2s", color: "#FF00FF" }, 
+      { from: [32.08, 34.78], to: [35.55, 50.80], size: 12, rotation: 345, duration: "3s", color: "#0038B8" },
+      { from: [31.04, 34.85], to: [32.60, 51.00], size: 10, rotation: 355, duration: "2.8s", color: "#0038B8" },
+      { from: [26.50, 54.00], to: [29.00, 56.00], size: 10, rotation: 310, duration: "2s", color: "#FF00FF" },
       { from: [25.00, 57.50], to: [27.20, 60.70], size: 10, rotation: 320, duration: "2.2s", color: "#FF00FF" },
       { from: [34.50, 33.50], to: [33.70, 35.50], size: 10, rotation: 25, duration: "1.8s", color: "#FF00FF" },
     ]
@@ -65,57 +65,52 @@ function AttackLines({ selectedId, colors }: { selectedId: string | null, colors
   const currentAttacks = attacks[selectedId] || [];
   const defaultColor = selectedId === "ukraine" ? colors.UKR_RUS : colors.ISR_IRN;
 
-  const shipSvg = (color: string, size: number) => `
-    <svg width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" stroke="${color}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="filter: drop-shadow(0 0 5px ${color});">
-      <path d="M2 10h20l-3 9H5l-3-9z" />
-      <path d="M12 2v8" />
-      <path d="M9 6h6" />
-    </svg>
-  `;
-
   return (
     <>
       {currentAttacks.map((attack, index) => {
         const activeColor = attack.color || defaultColor;
-        const s = attack.size || 20;
-        const r = attack.rotation || 0;
-        const isFromShip = attack.color === "#FF00FF" || attack.color === "#FFFFFF";
 
         return (
           <React.Fragment key={`${selectedId}-${index}`}>
-            <Marker 
-              position={attack.from} 
-              interactive={false} 
-              icon={L.divIcon({ 
-                className: "launch-point", 
-                html: isFromShip 
-                  ? `<div style="display: flex; align-items: center; justify-content: center;">${shipSvg(activeColor, SHIP_SIZE)}</div>`
-                  : `<div style="width: 8px; height: 8px; border: 2px solid ${activeColor}; border-radius: 50%; background: ${activeColor}44;"></div>`, 
-                iconSize: isFromShip ? [SHIP_SIZE, SHIP_SIZE] : [8, 8], 
-                iconAnchor: isFromShip ? [SHIP_SIZE / 2, SHIP_SIZE / 2] : [4, 4] 
-              })} 
-            />
-            
-            <Polyline positions={[attack.from, attack.to]} pathOptions={{ color: activeColor, weight: 1, opacity: 0.2, dashArray: "4, 8" }} />
-            
+
+            {/* --- STATIC DASHED LINE --- */}
             <Polyline
+              positions={[attack.from, attack.to]}
+              pathOptions={{
+                color: activeColor,
+                weight: 1,
+                opacity: 0.2,
+                dashArray: "4, 8"
+              }}
+            />
+
+            {/* --- ANIMATED MISSILE LINE (REF FIX) --- */}
+            <Polyline
+              ref={(ref) => {
+                if (ref) {
+                  const el = ref.getElement();
+                  if (el) {
+                    el.classList.add("animate-missile-flow");
+                    el.classList.add(`delay-m-${index}`);
+                  }
+                }
+              }}
               positions={[attack.from, attack.to]}
               pathOptions={{
                 color: activeColor,
                 weight: 3,
                 opacity: 1,
-                className: `animate-missile-flow delay-m-${index}`,
                 lineCap: "round"
               }}
             />
-            
-            <Marker position={attack.to} interactive={false} icon={L.divIcon({ className: "impact-arrow", html: `<div style="transform: rotate(${r}deg); color: ${activeColor}; display: flex; align-items: center; justify-content: center;"><svg viewBox="0 0 24 24" fill="currentColor" width="${s}" height="${s}" style="filter: drop-shadow(0 0 5px ${activeColor});"><path d="M21 12l-18 9v-18z" /></svg></div>`, iconSize: [s, s], iconAnchor: [s / 2, s / 2] })} />
+
           </React.Fragment>
         );
       })}
     </>
   );
 }
+
 
 // --- 3. KOMPONENTA PRO ZVÝRAZNĚNÍ STÁTŮ KONFLIKTU ---
 function ConflictCountries({ selectedId, show }: { selectedId: string | null; show: boolean }) {
