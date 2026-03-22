@@ -2,7 +2,12 @@ import OpenAI from "openai";
 
 const client = new OpenAI({ apiKey: process.env.OPENAI_KEY });
 
-export async function askAI(conflict, question) {
+interface ConflictData {
+  name: string;
+  [key: string]: any;
+}
+
+export async function askAI(conflict: ConflictData, question: string) {
   const response = await client.chat.completions.create({
     model: "gpt-4o-mini",
     messages: [
