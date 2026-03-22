@@ -1,6 +1,6 @@
-import OpenAI from "openai";
+import Groq from "groq-sdk";
 
-const client = new OpenAI({ apiKey: process.env.OPENAI_KEY });
+const client = new Groq({ apiKey: process.env.GROQ_API_KEY });
 
 interface ConflictData {
   name: string;
@@ -9,7 +9,7 @@ interface ConflictData {
 
 export async function askAI(conflict: ConflictData, question: string) {
   const response = await client.chat.completions.create({
-    model: "gpt-4o-mini",
+    model: "llama-3.1-8b-instant",
     messages: [
       {
         role: "system",
