@@ -2,9 +2,7 @@ import conflicts from "@/data/conflicts.json";
 import Timeline from "@/components/Timeline";
 import AIChat from "@/components/AIChat";
 import Link from "next/link";
-import dynamic from "next/dynamic";
-
-const MiniMap = dynamic(() => import("@/components/MiniMap"), { ssr: false });
+import MiniMap from "@/components/MiniMap"; // ← OPRAVENO
 
 interface ConflictPageProps {
   params: {

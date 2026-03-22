@@ -12,9 +12,9 @@ interface MiniMapProps {
   };
 }
 
-// SCI-FI MARKER: Místo klasické ikony použijeme jen svítící bod (divIcon)
+// SCI-FI MARKER
 const sciFiIcon = L.divIcon({
-  className: 'custom-div-icon',
+  className: "custom-div-icon",
   html: `<div style="
     background-color: #00f2ff;
     width: 10px;
@@ -30,28 +30,24 @@ const sciFiIcon = L.divIcon({
 export default function MiniMap({ area }: MiniMapProps) {
   return (
     <div className="w-full h-48 border border-cyan-900/30 relative overflow-hidden group">
-      {/* Dekorativní rohy pro mini-mapu */}
+      {/* Dekorativní rohy */}
       <div className="absolute top-0 left-0 w-2 h-2 border-t border-l border-cyan-400 z-10"></div>
       <div className="absolute bottom-0 right-0 w-2 h-2 border-b border-r border-cyan-400 z-10"></div>
-      
+
       <MapContainer
         center={[area.lat, area.lng]}
         zoom={area.zoom}
         scrollWheelZoom={false}
-        dragging={false} // Mini-mapa by měla být statická pro lepší "UI feel"
+        dragging={false}
         zoomControl={false}
-        attributionControl={false} // Odstraníme rušivé texty v rohu
+        attributionControl={false}
         className="w-full h-full mini-map-container"
       >
-        <TileLayer
-          /* Tmavší podkladová mapa */
-          url="https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png"
-        />
-
+        <TileLayer url="https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png" />
         <Marker position={[area.lat, area.lng]} icon={sciFiIcon} />
       </MapContainer>
 
-      {/* Překryvná vrstva pro digitální šum */}
+      {/* Digitální šum */}
       <div className="absolute inset-0 pointer-events-none bg-cyan-500/5 opacity-20 bg-[linear-gradient(rgba(18,16,16,0)_50%,rgba(0,0,0,0.25)_50%),linear-gradient(90deg,rgba(255,0,0,0.06),rgba(0,255,0,0.02),rgba(0,0,255,0.06))] bg-[length:100%_2px,3px_100%]"></div>
     </div>
   );
