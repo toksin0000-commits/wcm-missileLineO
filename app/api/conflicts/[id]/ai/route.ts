@@ -30,7 +30,6 @@ export async function POST(
       );
     }
 
-    // Minimální fallback data
     const baseConflict: Conflict = {
       id,
       name: id.replace(/-/g, " "),
