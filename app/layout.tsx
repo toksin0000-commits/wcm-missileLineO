@@ -1,4 +1,5 @@
 import "./globals.css";
+import "leaflet/dist/leaflet.css";   // ← TADY JE TEN KRITICKÝ IMPORT
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
