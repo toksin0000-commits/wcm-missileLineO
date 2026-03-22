@@ -20,17 +20,17 @@ const client = new Groq({
 
 export async function POST(
   _req: Request,
-  context: { params: Promise<{ id: string }> }
+  { params }: { params: { id: string } }
 ) {
   try {
     // 1. Příprava ID a kontrola prostředí
-    const { id } = await context.params;
+    const { id } = params;
 
     if (!process.env.GROQ_API_KEY) {
       return NextResponse.json({ error: "Missing GROQ_API_KEY" }, { status: 500 });
     }
 
-    // 2. Získání dat z KV (Fallback na prázdný objekt, pokud KV nefunguje nebo neexistuje)
+    // 2. Získání dat z KV (fallback pokud KV není dostupné)
     let conflict: Conflict | null = null;
     try {
       conflict = await kv.get<Conflict>(`conflict:${id}`);
@@ -76,15 +76,15 @@ export async function POST(
 
     const update = JSON.parse(content);
 
-    // 4. Sloučení dat (Nové události jdou na začátek)
+    // 4. Sloučení dat (nové události jdou na začátek)
     const updatedConflict: Conflict = {
       ...baseConflict,
       summary_short: update.summary_short || baseConflict.summary_short,
       timeline: [...(update.timeline || []), ...baseConflict.timeline]
-        .filter((item, index, self) => 
-          index === self.findIndex((t) => t.title === item.title) // Odstraní duplicity podle názvu
+        .filter((item, index, self) =>
+          index === self.findIndex((t) => t.title === item.title)
         )
-        .slice(0, 20), // Udržíme historii na 20 bodech
+        .slice(0, 20),
     };
 
     // 5. Uložení do KV (pokud je dostupné)
@@ -94,9 +94,9 @@ export async function POST(
       console.error("Failed to save to KV:", e);
     }
 
-    return NextResponse.json({ 
-      status: "success", 
-      conflict: updatedConflict 
+    return NextResponse.json({
+      status: "success",
+      conflict: updatedConflict,
     });
 
   } catch (err: any) {

@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { kv } from "@vercel/kv";
-import OpenAI from "openai";
+import Groq from "groq-sdk";
 
 interface Conflict {
   id: string;
@@ -13,8 +13,8 @@ interface Conflict {
   }[];
 }
 
-const client = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY
+const client = new Groq({
+  apiKey: process.env.GROQ_API_KEY
 });
 
 export async function GET(_req: Request) {
@@ -26,7 +26,7 @@ export async function GET(_req: Request) {
     if (!conflict) continue;
 
     const response = await client.chat.completions.create({
-      model: "gpt-4o-mini",
+      model: "llama-3.1-8b-instant",
       messages: [
         {
           role: "system",
@@ -55,7 +55,6 @@ Vrať JSON ve formátu:
       ]
     });
 
-    // ⭐ OPRAVA: bezpečné získání contentu
     const content = response.choices[0].message.content;
 
     if (!content) {
