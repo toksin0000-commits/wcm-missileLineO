@@ -8,7 +8,9 @@ import "leaflet/dist/leaflet.css";
 import MapController from "./MapController";
 import AttackLines from "./AttackLines";
 import ConflictCountries from "./ConflictCountries";
-type ConflictId = "ukraine" | "israel-iran" | null;
+
+// ⭐ JEDINÁ ÚPRAVA — EXPORTUJEME TYP
+export type ConflictId = "ukraine" | "israel-iran" | null;
 
 type MapProps = {
   onSelectConflict: (id: ConflictId) => void;
@@ -23,7 +25,7 @@ export default function Map({
 }: MapProps) {
   const [showAttacks, setShowAttacks] = useState(false);
   const [showBorders, setShowBorders] = useState(false);
-  const [panelOpen, setPanelOpen] = useState(false);   // ⭐ NOVÉ
+  const [panelOpen, setPanelOpen] = useState(false);
 
   const COLORS = { UKR_RUS: "#FF0000", ISR_IRN: "#39FF14" };
 
@@ -36,18 +38,16 @@ export default function Map({
     if (!selectedId) {
       setShowAttacks(false);
       setShowBorders(false);
-      setPanelOpen(false); // ⭐ reset panelu při návratu na globální mapu
+      setPanelOpen(false);
     }
   }, [selectedId]);
 
   return (
     <div className="w-full h-full bg-[#020617] relative overflow-hidden">
 
-      {/* ⭐ BUTTONS TOP RIGHT — zmizí, když panelOpen === true */}
       {showAttacks && selectedId && !panelOpen && (
         <div className="absolute top-5 right-5 z-[9999] flex gap-3">
 
-          {/* HIDE / SHOW BORDERS */}
           <button
             onClick={() => setShowBorders(!showBorders)}
             className={`px-4 py-2 rounded-lg text-sm font-bold uppercase tracking-wider transition-all duration-300 shadow-lg ${
@@ -59,7 +59,6 @@ export default function Map({
             {showBorders ? 'HIDE BORDERS' : 'SHOW BORDERS'}
           </button>
 
-          {/* ⭐ GLOBAL MAP */}
           <button
             onClick={() => { onSelectConflict(null); setPanelOpen(false); }}
             className="px-4 py-2 rounded-lg text-sm font-bold uppercase tracking-wider bg-gray-800 text-gray-300 hover:bg-gray-700 border border-gray-600 transition-all duration-300 shadow-lg"
@@ -84,7 +83,6 @@ export default function Map({
 
           <ConflictCountries selectedId={selectedId} show={showBorders} />
 
-          {/* UKRAINE MARKER */}
           <Marker 
             position={[48.3794, 31.1656]} 
             icon={L.divIcon({ 
@@ -99,7 +97,6 @@ export default function Map({
             eventHandlers={{ click: () => { onSelectConflict("ukraine"); setPanelOpen(false); } }} 
           />
 
-          {/* ISRAEL MARKER */}
           <Marker 
             position={[31.0461, 34.8516]} 
             icon={L.divIcon({ 
@@ -118,38 +115,35 @@ export default function Map({
         </MapContainer>
       </div>
 
-      {/* ⭐ CONFLICT PANEL BUTTON */}
-{showAttacks && (
-  <div className="absolute bottom-10 right-10 z-[9999] flex items-center justify-center animate-slide-in-up">
-    <div className="absolute inset-0 bg-red-600/30 rounded-xl animate-ping duration-[2000ms]"></div>
-    
-    <button
-      onClick={() => { 
-        onSelectConflict(selectedId);   // ⭐ OTEVŘE PANEL
-        setPanelOpen(true);            // ⭐ SKRYJE TLAČÍTKA NAHOŘE
-      }}
-      className="group relative flex items-center gap-3 px-6 py-4 bg-slate-900 border border-red-900/50 rounded-xl shadow-[0_0_20px_rgba(220,38,38,0.3)] transition-all hover:border-red-500 hover:scale-105 active:scale-95 animate-pulse-slow"
-    >
-      <div className="flex flex-col items-start leading-tight">
-        <span className="text-[10px] uppercase tracking-[0.2em] text-red-500 font-black animate-pulse">
-          System Active
-        </span>
-        <span className="text-sm font-black text-white uppercase tracking-widest">
-          Conflict Panel
-        </span>
-      </div>
-      
-      <div className="w-10 h-10 flex items-center justify-center bg-red-600/20 rounded-lg group-hover:bg-red-600 transition-all duration-300 shadow-inner">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" className="w-5 h-5 text-red-500 group-hover:text-white group-hover:rotate-12 transition-transform">
-          <path d="M5 12h14M12 5l7 7-7 7" />
-        </svg>
-      </div>
-    </button>
-  </div>
-)}
+      {showAttacks && (
+        <div className="absolute bottom-10 right-10 z-[9999] flex items-center justify-center animate-slide-in-up">
+          <div className="absolute inset-0 bg-red-600/30 rounded-xl animate-ping duration-[2000ms]"></div>
+          
+          <button
+            onClick={() => { 
+              onSelectConflict(selectedId);
+              setPanelOpen(true);
+            }}
+            className="group relative flex items-center gap-3 px-6 py-4 bg-slate-900 border border-red-900/50 rounded-xl shadow-[0_0_20px_rgba(220,38,38,0.3)] transition-all hover:border-red-500 hover:scale-105 active:scale-95 animate-pulse-slow"
+          >
+            <div className="flex flex-col items-start leading-tight">
+              <span className="text-[10px] uppercase tracking-[0.2em] text-red-500 font-black animate-pulse">
+                System Active
+              </span>
+              <span className="text-sm font-black text-white uppercase tracking-widest">
+                Conflict Panel
+              </span>
+            </div>
+            
+            <div className="w-10 h-10 flex items-center justify-center bg-red-600/20 rounded-lg group-hover:bg-red-600 transition-all duration-300 shadow-inner">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" className="w-5 h-5 text-red-500 group-hover:text-white group-hover:rotate-12 transition-transform">
+                <path d="M5 12h14M12 5l7 7-7 7" />
+              </svg>
+            </div>
+          </button>
+        </div>
+      )}
 
-
-      {/* ⭐ PULZUJÍCÍ KRUŽNICE */}
       <style jsx global>{`
         @keyframes pulse { 
           0% { transform: scale(1); opacity: 1; } 
