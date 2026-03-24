@@ -46,7 +46,7 @@ export default function Map({
     <div className="w-full h-full bg-[#020617] relative overflow-hidden">
 
       {showAttacks && selectedId && !panelOpen && (
-        <div className="absolute top-5 right-5 z-[9999] flex gap-3">
+        <div className="absolute top-5 right-5 z-9999 flex gap-3">
 
           <button
             onClick={() => setShowBorders(!showBorders)}
@@ -119,8 +119,8 @@ export default function Map({
       </div>
 
       {showAttacks && (
-        <div className="absolute bottom-10 right-10 z-[9999] flex items-center justify-center animate-slide-in-up">
-          <div className="absolute inset-0 bg-red-600/30 rounded-xl animate-ping duration-[2000ms]"></div>
+        <div className="absolute bottom-10 right-10 z-9999 flex items-center justify-center animate-slide-in-up">
+          <div className="absolute inset-0 bg-red-600/30 rounded-xl animate-ping duration-2000"></div>
           
           <button
             onClick={() => { 
