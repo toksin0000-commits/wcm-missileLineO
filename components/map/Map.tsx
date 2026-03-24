@@ -85,7 +85,7 @@ export default function Map({
 
       {/* JEDNODUCHÁ TLAČÍTKA PRO VÝBĚR KONFLIKTU */}
       {zoom <= 3 && !selectedId && (
-        <div className="absolute top-5 left-1/2 -translate-x-1/2 z-[9999] flex flex-col gap-2 w-[260px]">
+        <div className="absolute top-5 left-1/2 -translate-x-1/2 z-9999 flex flex-col gap-2 w-65">
           <button
             onClick={() => onSelectConflict("ukraine")}
             className="w-full px-4 py-2 text-xs font-bold uppercase tracking-widest bg-slate-900 text-gray-100 border border-red-500 hover:bg-red-700 hover:border-red-500 transition-colors"

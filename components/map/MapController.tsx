@@ -17,7 +17,7 @@ export default function MapController({
   useEffect(() => {
     const views: Record<Exclude<ConflictId, null>, { center: [number, number]; zoom: number }> = {
       ukraine: { center: [49, 36], zoom: 5 },
-      "israel-iran": { center: [33.5, 43], zoom: 4 },
+      "israel-iran": { center: [30, 45], zoom: 3.8 },
     };
 
     if (selectedId && selectedId in views) {
