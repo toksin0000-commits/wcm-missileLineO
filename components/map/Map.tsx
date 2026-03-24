@@ -71,12 +71,15 @@ export default function Map({
 
       <div className={`w-full h-full transition-all duration-1000 ${isDimmed ? "brightness-[0.3] grayscale" : "brightness-100"}`}>
         <MapContainer
-          center={[20, 0]}
-          zoom={2}
-          className="w-full h-full"
-          zoomControl={false}
-          style={{ background: "#020617" }}
-        >
+  center={[20, 0]}
+  zoom={2}
+  className="w-full h-full"
+  zoomControl={false}
+  style={{ background: "#020617" }}
+  maxBounds={[[-85, -180], [85, 180]]}
+  maxBoundsViscosity={1.0}
+>
+
           <TileLayer url="https://{s}.basemaps.cartocdn.com/rastertiles/voyager_labels_under/{z}/{x}/{y}{r}.png" />
 
           <MapController selectedId={selectedId} onAnimationComplete={handleArrival} />

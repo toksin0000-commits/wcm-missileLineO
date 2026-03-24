@@ -39,12 +39,12 @@ export default function AttackLines({
     ],
 
     "israel-iran": [
-      { from: [35.68, 51.38], to: [32.2, 35.2], size: 10, rotation: 160, duration: "2.5s", color: "#39FF14", width: 4, length: 1000, delay: 0 },
+      { from: [34.8, 51.38], to: [32.2, 35.2], size: 10, rotation: 160, duration: "2.5s", color: "#39FF14", width: 3, length: 1000, delay: 0 },
       { from: [32.66, 51.67], to: [32.79, 34.98], size: 10, rotation: 185, duration: "2.5s", color: "#1FBD00", width: 3, length: 700, delay: 300 },
-      { from: [34.5, 47.5], to: [36.19, 44.0], size: 12, rotation: 215, duration: "1.5s", color: "#39FF14", width: 6, length: 1500, delay: 600 },
-      { from: [32.0, 48.0], to: [33.51, 36.27], size: 13, rotation: 190, duration: "5s", color: "#39FF14", width: 4, length: 1300, delay: 900 },
-      { from: [30.0, 50.0], to: [29.55, 34.95], size: 10, rotation: 185, duration: "3s", width: 3, length: 900, delay: 1200 },
-      { from: [32.08, 34.78], to: [35.55, 50.8], size: 12, rotation: 345, duration: "3s", color: "#0038B8", width: 4, length: 1100, delay: 1500 },
+      { from: [34.5, 47.5], to: [36.19, 44.0], size: 12, rotation: 215, duration: "1.5s", color: "#39FF14", width: 3, length: 1500, delay: 600 },
+      { from: [32.0, 48.0], to: [33.51, 36.27], size: 13, rotation: 190, duration: "5s", color: "#39FF14", width: 3, length: 1300, delay: 900 },
+      { from: [30.0, 50.0], to: [29.55, 34.95], size: 10, rotation: 185, duration: "3s", color: "#39FF14",width: 3, length: 900, delay: 2000 },
+      { from: [32.08, 34.78], to: [35.55, 50.8], size: 12, rotation: 345, duration: "3s", color: "#0038B8", width: 3, length: 1100, delay: 1500 },
       { from: [31.04, 34.85], to: [32.6, 51.0], size: 10, rotation: 355, duration: "2.8s", color: "#0038B8", width: 3, length: 800, delay: 1800 },
       { from: [26.5, 54.0], to: [29.0, 56.0], size: 10, rotation: 310, duration: "2s", color: "#FF00FF", width: 3, length: 700, delay: 2100 },
       { from: [25.0, 57.5], to: [27.2, 60.7], size: 10, rotation: 320, duration: "2.2s", color: "#FF00FF", width: 3, length: 800, delay: 2400 },
