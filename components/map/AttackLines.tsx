@@ -30,20 +30,20 @@ export default function AttackLines({
     }[]
   > = {
     ukraine: [
-      { from: [54.0, 38.0], to: [50.5, 30.65], size: 13, rotation: 140, duration: "2s", color: "#FF5555", width: 4, length: 900, delay: 0 },
-      { from: [50.59, 36.58], to: [50.05, 36.27], size: 10, rotation: 110, duration: "4s", color: "#FFAAAA", width: 3, length: 600, delay: 300 },
-      { from: [47.23, 39.7], to: [48.46, 35.04], size: 12, rotation: 208, duration: "3s", width: 5, length: 1200, delay: 600 },
-      { from: [44.51, 34.16], to: [46.48, 30.72], size: 12, rotation: 220, duration: "3.5s", width: 4, length: 1000, delay: 900 },
-      { from: [50.45, 30.52], to: [55.75, 37.61], size: 12, rotation: 310, duration: "3s", color: "#0057B7", width: 4, length: 1100, delay: 1200 },
+      { from: [54.0, 38.0], to: [50.5, 30.65], size: 13, rotation: 140, duration: "2s", color: "#FF0033", width: 3, length: 900, delay: 0 },
+      { from: [50.59, 36.58], to: [50.05, 36.27], size: 10, rotation: 110, duration: "4s", color: "#FF0033", width: 3, length: 600, delay: 300 },
+      { from: [47.23, 39.7], to: [48.46, 35.04], size: 12, rotation: 208, duration: "3s", color: "#FF0033", width: 3, length: 1200, delay: 600 },
+      { from: [44.51, 34.16], to: [46.48, 30.72], size: 12, rotation: 220, duration: "3.5s", color: "#FF0033", width: 3, length: 1000, delay: 900 },
+      { from: [50.45, 30.52], to: [55.75, 37.61], size: 12, rotation: 310, duration: "3s", color: "#0057B7", width: 3, length: 1100, delay: 1200 },
       { from: [49.99, 36.23], to: [51.67, 39.18], size: 12, rotation: 320, duration: "2.5s", color: "#0057B7", width: 3, length: 700, delay: 1500 },
     ],
 
     "israel-iran": [
-      { from: [34.8, 51.38], to: [32.2, 35.2], size: 10, rotation: 160, duration: "2.5s", color: "#39FF14", width: 3, length: 1000, delay: 0 },
+      { from: [34.8, 51.38], to: [32.2, 35.2], size: 10, rotation: 160, duration: "2.5s", color: "#1FBD00", width: 3, length: 1000, delay: 0 },
       { from: [32.66, 51.67], to: [32.79, 34.98], size: 10, rotation: 185, duration: "2.5s", color: "#1FBD00", width: 3, length: 700, delay: 300 },
-      { from: [34.5, 47.5], to: [36.19, 44.0], size: 12, rotation: 215, duration: "1.5s", color: "#39FF14", width: 3, length: 1500, delay: 600 },
-      { from: [32.0, 48.0], to: [33.51, 36.27], size: 13, rotation: 190, duration: "5s", color: "#39FF14", width: 3, length: 1300, delay: 900 },
-      { from: [30.0, 50.0], to: [29.55, 34.95], size: 10, rotation: 185, duration: "3s", color: "#39FF14",width: 3, length: 900, delay: 2000 },
+      { from: [34.5, 47.5], to: [36.19, 44.0], size: 12, rotation: 215, duration: "1.5s", color: "#1FBD00", width: 3, length: 1500, delay: 600 },
+      { from: [32.0, 48.0], to: [33.51, 36.27], size: 13, rotation: 190, duration: "5s", color: "#1FBD00", width: 3, length: 1300, delay: 900 },
+      { from: [30.0, 50.0], to: [29.55, 34.95], size: 10, rotation: 185, duration: "3s", color: "#1FBD00",width: 3, length: 900, delay: 2000 },
       { from: [32.08, 34.78], to: [35.55, 50.8], size: 12, rotation: 345, duration: "3s", color: "#0038B8", width: 3, length: 1100, delay: 1500 },
       { from: [31.04, 34.85], to: [32.6, 51.0], size: 10, rotation: 355, duration: "2.8s", color: "#0038B8", width: 3, length: 800, delay: 1800 },
       { from: [26.5, 54.0], to: [29.0, 56.0], size: 10, rotation: 310, duration: "2s", color: "#FF00FF", width: 3, length: 700, delay: 2100 },

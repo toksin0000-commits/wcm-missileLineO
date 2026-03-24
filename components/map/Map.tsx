@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import { MapContainer, TileLayer, Marker } from "react-leaflet";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
@@ -9,7 +9,6 @@ import MapController from "./MapController";
 import AttackLines from "./AttackLines";
 import ConflictCountries from "./ConflictCountries";
 
-// ⭐ JEDINÁ ÚPRAVA — EXPORTUJEME TYP
 export type ConflictId = "ukraine" | "israel-iran" | null;
 
 type MapProps = {
@@ -27,7 +26,10 @@ export default function Map({
   const [showBorders, setShowBorders] = useState(false);
   const [panelOpen, setPanelOpen] = useState(false);
 
-  const COLORS = { UKR_RUS: "#FF0000", ISR_IRN: "#39FF14" };
+  const [zoom, setZoom] = useState(2);
+  const mapRef = useRef<any>(null);
+
+  const COLORS = { UKR_RUS: "#FF0000", ISR_IRN: "#FF00FF" };
 
   const handleArrival = useCallback(() => {
     setShowAttacks(true);
@@ -41,6 +43,18 @@ export default function Map({
       setPanelOpen(false);
     }
   }, [selectedId]);
+
+  useEffect(() => {
+    const map = mapRef.current;
+    if (!map) return;
+
+    const updateZoom = () => setZoom(map.getZoom());
+    map.on("zoomend", updateZoom);
+
+    return () => {
+      map.off("zoomend", updateZoom);
+    };
+  }, [mapRef.current]);
 
   return (
     <div className="w-full h-full bg-[#020617] relative overflow-hidden">
@@ -69,16 +83,35 @@ export default function Map({
         </div>
       )}
 
+      {/* JEDNODUCHÁ TLAČÍTKA PRO VÝBĚR KONFLIKTU */}
+      {zoom <= 3 && !selectedId && (
+        <div className="absolute top-5 left-1/2 -translate-x-1/2 z-[9999] flex flex-col gap-2 w-[260px]">
+          <button
+            onClick={() => onSelectConflict("ukraine")}
+            className="w-full px-4 py-2 text-xs font-bold uppercase tracking-widest bg-slate-900 text-gray-100 border border-red-500 hover:bg-red-700 hover:border-red-500 transition-colors"
+          >
+            Russia-Ukraine Conflict
+          </button>
+          <button
+            onClick={() => onSelectConflict("israel-iran")}
+            className="w-full px-4 py-2 text-xs font-bold uppercase tracking-widest bg-slate-900 text-gray-100 border border-fuchsia-500 hover:bg-fuchsia-700 hover:border-fuchsia-500 transition-colors"
+          >
+            Israel-Iran Conflict
+          </button>
+        </div>
+      )}
+
       <div className={`w-full h-full transition-all duration-1000 ${isDimmed ? "brightness-[0.3] grayscale" : "brightness-100"}`}>
         <MapContainer
-  center={[20, 0]}
-  zoom={2}
-  className="w-full h-full"
-  zoomControl={false}
-  style={{ background: "#020617" }}
-  maxBounds={[[-85, -180], [85, 180]]}
-  maxBoundsViscosity={1.0}
->
+          center={[20, 0]}
+          zoom={2}
+          className="w-full h-full"
+          zoomControl={false}
+          style={{ background: "#020617" }}
+          maxBounds={[[-85, -180], [85, 180]]}
+          maxBoundsViscosity={1.0}
+          ref={mapRef}
+        >
 
           <TileLayer url="https://{s}.basemaps.cartocdn.com/rastertiles/voyager_labels_under/{z}/{x}/{y}{r}.png" />
 
@@ -86,33 +119,37 @@ export default function Map({
 
           <ConflictCountries selectedId={selectedId} show={showBorders} />
 
-          <Marker 
-            position={[48.3794, 31.1656]} 
-            icon={L.divIcon({ 
-              html: `
-                <div class="scope-container">
-                  <div class="scope-pulse scope-pulse-ukr"></div>
-                  <div class="scope-cross-h" style="background: ${COLORS.UKR_RUS}"></div>
-                  <div class="scope-cross-v" style="background: ${COLORS.UKR_RUS}"></div>
-                </div>`, 
-              className: "" 
-            })} 
-            eventHandlers={{ click: () => { onSelectConflict("ukraine"); setPanelOpen(false); } }} 
-          />
+          {zoom <= 3 && (
+            <Marker 
+              position={[51, 33]} 
+              icon={L.divIcon({ 
+                html: `
+                  <div class="scope-container">
+                    <div class="scope-pulse scope-pulse-ukr"></div>
+                    <div class="scope-cross-h" style="background: ${COLORS.UKR_RUS}"></div>
+                    <div class="scope-cross-v" style="background: ${COLORS.UKR_RUS}"></div>
+                  </div>`, 
+                className: "" 
+              })} 
+              eventHandlers={{ click: () => { onSelectConflict("ukraine"); setPanelOpen(false); } }} 
+            />
+          )}
 
-          <Marker 
-            position={[31.0461, 34.8516]} 
-            icon={L.divIcon({ 
-              html: `
-                <div class="scope-container">
-                  <div class="scope-pulse scope-pulse-isr"></div>
-                  <div class="scope-cross-h" style="background: ${COLORS.ISR_IRN}"></div>
-                  <div class="scope-cross-v" style="background: ${COLORS.ISR_IRN}"></div>
-                </div>`, 
-              className: "" 
-            })} 
-            eventHandlers={{ click: () => { onSelectConflict("israel-iran"); setPanelOpen(false); } }} 
-          />
+          {zoom <= 3 && (
+            <Marker 
+              position={[31.0461, 34.8516]} 
+              icon={L.divIcon({ 
+                html: `
+                  <div class="scope-container">
+                    <div class="scope-pulse scope-pulse-isr"></div>
+                    <div class="scope-cross-h" style="background: ${COLORS.ISR_IRN}"></div>
+                    <div class="scope-cross-v" style="background: ${COLORS.ISR_IRN}"></div>
+                  </div>`, 
+                className: "" 
+              })} 
+              eventHandlers={{ click: () => { onSelectConflict("israel-iran"); setPanelOpen(false); } }} 
+            />
+          )}
 
           {showAttacks && <AttackLines selectedId={selectedId} colors={COLORS} />}
         </MapContainer>
@@ -171,12 +208,12 @@ export default function Map({
         }
 
         .scope-pulse-ukr { 
-          border: 2px solid #FF0000; 
+          border: 2px solid ##FFF700; 
           animation: pulse 0.8s infinite ease-out; 
         }
 
         .scope-pulse-isr { 
-          border: 2px solid #39FF14; 
+          border: 2px solid #FF00FF; 
           animation: pulse 2.5s infinite ease-in-out; 
           animation-delay: -0.75s;
         }
@@ -188,6 +225,13 @@ export default function Map({
         }
         .scope-cross-h { width: 15px; height: 1px; }
         .scope-cross-v { width: 1px; height: 15px; }
+
+        /* Unified monospace font for the entire Map UI */
+.map-panel * {
+  font-family: monospace !important;
+  letter-spacing: 0.05em;
+}
+
       `}</style>
 
     </div>
