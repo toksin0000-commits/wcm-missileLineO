@@ -11,17 +11,199 @@
       {
         "country": "RUSSIA",
         "categories": {
-          "Air Forces": ["Tu-160 Blackjack", "Su-34 Fullback", "Geran-2 (UAV)"],
-          "Navy": ["Admiral Grigorovich-class", "Buyan-M class"],
-          "Missile Systems": ["Iskander-M", "KH-101", "Zircon"]
+          "Air Forces": [
+            {
+              "name": "Tu-160 Blackjack",
+              "image": "/images/ukraine/tu-160-blackjack.jpg",
+              "description": "Supersonic strategic bomber, the largest and heaviest combat aircraft in the world",
+              "range": "12,300 km",
+              "speed": "Mach 2.05",
+              "warhead": "40,000 kg",
+              "year": "1987",
+              "status": "Active",
+              "price": "$300M"
+            },
+            {
+              "name": "Su-34 Fullback",
+              "image": "/images/ukraine/su-34-fullback.jpg",
+              "description": "Twin-seat fighter-bomber designed for tactical and strategic strikes",
+              "range": "4,000 km",
+              "speed": "Mach 1.8",
+              "warhead": "8,000 kg",
+              "year": "2014",
+              "status": "Active",
+              "price": "$36M"
+            },
+            {
+              "name": "Geran-2 (UAV)",
+              "image": "/images/ukraine/geran-2-uav.jpg",
+              "description": "One-way attack drone, Iranian-origin Shahed-136 produced in Russia",
+              "range": "2,500 km",
+              "speed": "185 km/h",
+              "warhead": "50 kg",
+              "year": "2022",
+              "status": "Active",
+              "price": "$20K"
+            }
+          ],
+          "Navy": [
+            {
+              "name": "Admiral Grigorovich-class",
+              "image": "/images/ukraine/admiral-grigorovich-class.jpg",
+              "description": "Frigate equipped with cruise missiles for anti-ship and land-attack missions",
+              "range": "4,850 km",
+              "speed": "30 knots",
+              "warhead": "N/A",
+              "year": "2016",
+              "status": "Active",
+              "price": "$400M"
+            },
+            {
+              "name": "Buyan-M class",
+              "image": "/images/ukraine/buyan-m-class.jpg",
+              "description": "Small artillery corvette equipped with Kalibr cruise missiles",
+              "range": "2,500 km",
+              "speed": "26 knots",
+              "warhead": "N/A",
+              "year": "2013",
+              "status": "Active",
+              "price": "$150M"
+            }
+          ],
+          "Missile Systems": [
+            {
+              "name": "Iskander-M",
+              "image": "/images/ukraine/iskander-m.jpg",
+              "description": "Tactical ballistic missile system with high maneuverability",
+              "range": "500 km",
+              "speed": "Mach 6-7",
+              "warhead": "700 kg",
+              "year": "2006",
+              "status": "Active",
+              "price": "$3M"
+            },
+            {
+              "name": "KH-101",
+              "image": "/images/ukraine/kh-101.jpg",
+              "description": "Stealth cruise missile launched from strategic bombers",
+              "range": "4,500 km",
+              "speed": "Mach 0.8",
+              "warhead": "450 kg",
+              "year": "2012",
+              "status": "Active",
+              "price": "$13M"
+            },
+            {
+              "name": "Zircon",
+              "image": "/images/ukraine/zircon.jpg",
+              "description": "Hypersonic anti-ship cruise missile",
+              "range": "1,000 km",
+              "speed": "Mach 8-9",
+              "warhead": "300-400 kg",
+              "year": "2022",
+              "status": "Active",
+              "price": "$10M"
+            }
+          ]
         }
       },
       {
         "country": "UKRAINE",
         "categories": {
-          "Air Forces": ["F-16 Fighting Falcon", "MiG-29 Fulcrum", "Bayraktar TB2"],
-          "Navy": ["Magura V5 (USV)", "Sea Baby (USV)"],
-          "Missile Systems": ["MIM-104 Patriot", "HIMARS", "Storm Shadow"]
+          "Air Forces": [
+            {
+              "name": "F-16 Fighting Falcon",
+              "image": "/images/ukraine/f-16-fighting-falcon.jpg",
+              "description": "Multirole fighter aircraft supplied by Western partners",
+              "range": "4,200 km",
+              "speed": "Mach 2.05",
+              "warhead": "7,700 kg",
+              "year": "2024",
+              "status": "Active",
+              "price": "$63M"
+            },
+            {
+              "name": "MiG-29 Fulcrum",
+              "image": "/images/ukraine/mig-29-fulcrum.jpg",
+              "description": "Soviet-era air superiority fighter, modernized for Western munitions",
+              "range": "1,430 km",
+              "speed": "Mach 2.25",
+              "warhead": "4,000 kg",
+              "year": "1983",
+              "status": "Active",
+              "price": "$15M"
+            },
+            {
+              "name": "Bayraktar TB2",
+              "image": "/images/ukraine/bayraktar-tb2.jpg",
+              "description": "Turkish combat drone, effective against armor and artillery",
+              "range": "300 km",
+              "speed": "220 km/h",
+              "warhead": "150 kg",
+              "year": "2019",
+              "status": "Active",
+              "price": "$5M"
+            }
+          ],
+          "Navy": [
+            {
+              "name": "Magura V5 (USV)",
+              "image": "/images/ukraine/magura-v5-usv.jpg",
+              "description": "Unmanned surface vessel for naval strikes",
+              "range": "800 km",
+              "speed": "42 knots",
+              "warhead": "200 kg",
+              "year": "2023",
+              "status": "Active",
+              "price": "$250K"
+            },
+            {
+              "name": "Sea Baby (USV)",
+              "image": "/images/ukraine/sea-baby-usv.jpg",
+              "description": "Long-range naval drone used against Russian fleet",
+              "range": "1,000 km",
+              "speed": "25 knots",
+              "warhead": "850 kg",
+              "year": "2023",
+              "status": "Active",
+              "price": "$350K"
+            }
+          ],
+          "Missile Systems": [
+            {
+              "name": "MIM-104 Patriot",
+              "image": "/images/ukraine/mim-104-patriot.jpg",
+              "description": "US-made air defense system, intercepts ballistic missiles",
+              "range": "160 km",
+              "speed": "Mach 5",
+              "warhead": "N/A",
+              "year": "2023",
+              "status": "Active",
+              "price": "$4M/missile"
+            },
+            {
+              "name": "HIMARS",
+              "image": "/images/ukraine/himars.jpg",
+              "description": "Mobile rocket artillery system with precision strike capability",
+              "range": "80-300 km",
+              "speed": "Mach 2.5",
+              "warhead": "90 kg",
+              "year": "2022",
+              "status": "Active",
+              "price": "$5.5M"
+            },
+            {
+              "name": "Storm Shadow",
+              "image": "/images/ukraine/storm-shadow.jpg",
+              "description": "Air-launched cruise missile with bunker-busting capability",
+              "range": "250 km",
+              "speed": "Mach 0.8",
+              "warhead": "450 kg",
+              "year": "2023",
+              "status": "Active",
+              "price": "$2.5M"
+            }
+          ]
         }
       }
     ],
@@ -93,17 +275,199 @@
       {
         "country": "IRAN",
         "categories": {
-          "Air Forces": ["Su-35S (Delivery pending)", "F-14 Tomcat", "Shahed-136"],
-          "Navy": ["Moudge-class", "Sahand-class"],
-          "Missile Systems": ["Fattah-1", "Shahab-3", "Sejjil"]
+          "Air Forces": [
+            {
+              "name": "Su-35S",
+              "image": "/images/israel-iran/su-35s.jpg",
+              "description": "Advanced 4++ generation fighter, delivery pending from Russia",
+              "range": "3,600 km",
+              "speed": "Mach 2.25",
+              "warhead": "8,000 kg",
+              "year": "2025",
+              "status": "Pending",
+              "price": "$85M"
+            },
+            {
+              "name": "F-14 Tomcat",
+              "image": "/images/israel-iran/f-14-tomcat.jpg",
+              "description": "US-made fighter, maintained with indigenous parts since 1979",
+              "range": "2,960 km",
+              "speed": "Mach 2.34",
+              "warhead": "6,500 kg",
+              "year": "1976",
+              "status": "Active",
+              "price": "$38M"
+            },
+            {
+              "name": "Shahed-136",
+              "image": "/images/israel-iran/shahed-136.jpg",
+              "description": "One-way attack drone, widely used against infrastructure",
+              "range": "2,500 km",
+              "speed": "185 km/h",
+              "warhead": "50 kg",
+              "year": "2020",
+              "status": "Active",
+              "price": "$20K"
+            }
+          ],
+          "Navy": [
+            {
+              "name": "Moudge-class",
+              "image": "/images/israel-iran/moudge-class.jpg",
+              "description": "Light frigate class, domestically produced",
+              "range": "5,000 km",
+              "speed": "30 knots",
+              "warhead": "N/A",
+              "year": "2010",
+              "status": "Active",
+              "price": "$100M"
+            },
+            {
+              "name": "Sahand-class",
+              "image": "/images/israel-iran/sahand-class.jpg",
+              "description": "Moudge-class frigate with stealth features",
+              "range": "5,000 km",
+              "speed": "30 knots",
+              "warhead": "N/A",
+              "year": "2018",
+              "status": "Active",
+              "price": "$120M"
+            }
+          ],
+          "Missile Systems": [
+            {
+              "name": "Fattah-1",
+              "image": "/images/israel-iran/fattah-1.jpg",
+              "description": "Hypersonic ballistic missile with high maneuverability",
+              "range": "1,400 km",
+              "speed": "Mach 5-8",
+              "warhead": "500 kg",
+              "year": "2023",
+              "status": "Active",
+              "price": "$500K"
+            },
+            {
+              "name": "Shahab-3",
+              "image": "/images/israel-iran/shahab-3.jpg",
+              "description": "Medium-range ballistic missile, backbone of Iranian arsenal",
+              "range": "1,000-2,000 km",
+              "speed": "Mach 5",
+              "warhead": "1,000 kg",
+              "year": "2003",
+              "status": "Active",
+              "price": "$300K"
+            },
+            {
+              "name": "Sejjil",
+              "image": "/images/israel-iran/sejjil.jpg",
+              "description": "Solid-fuel ballistic missile with rapid launch capability",
+              "range": "2,500 km",
+              "speed": "Mach 6",
+              "warhead": "700 kg",
+              "year": "2008",
+              "status": "Active",
+              "price": "$400K"
+            }
+          ]
         }
       },
       {
         "country": "ISRAEL",
         "categories": {
-          "Air Forces": ["F-35I Adir", "F-15I Ra'am", "Eitan (UAV)"],
-          "Navy": ["Sa'ar 6-class", "Dolphin-2 submarines"],
-          "Missile Systems": ["Iron Dome", "Arrow 3", "David's Sling"]
+          "Air Forces": [
+            {
+              "name": "F-35I Adir",
+              "image": "/images/israel-iran/f-35i-adir.jpg",
+              "description": "Stealth multirole fighter, Israeli-modified version of F-35",
+              "range": "2,800 km",
+              "speed": "Mach 1.6",
+              "warhead": "8,100 kg",
+              "year": "2017",
+              "status": "Active",
+              "price": "$110M"
+            },
+            {
+              "name": "F-15I Ra'am",
+              "image": "/images/israel-iran/f-15i-raam.jpg",
+              "description": "Long-range strike fighter, backbone of deep strike missions",
+              "range": "4,450 km",
+              "speed": "Mach 2.5",
+              "warhead": "11,000 kg",
+              "year": "1998",
+              "status": "Active",
+              "price": "$100M"
+            },
+            {
+              "name": "Eitan (UAV)",
+              "image": "/images/israel-iran/eitan-uav.jpg",
+              "description": "Large unmanned aerial vehicle for surveillance and strikes",
+              "range": "7,400 km",
+              "speed": "370 km/h",
+              "warhead": "N/A",
+              "year": "2010",
+              "status": "Active",
+              "price": "$30M"
+            }
+          ],
+          "Navy": [
+            {
+              "name": "Sa'ar 6-class",
+              "image": "/images/israel-iran/saar-6-class.jpg",
+              "description": "Corvette with advanced air defense systems",
+              "range": "4,000 km",
+              "speed": "35 knots",
+              "warhead": "N/A",
+              "year": "2020",
+              "status": "Active",
+              "price": "$500M"
+            },
+            {
+              "name": "Dolphin-2 submarines",
+              "image": "/images/israel-iran/dolphin-2-submarines.jpg",
+              "description": "Diesel-electric submarine, nuclear-capable (reported)",
+              "range": "8,000 km",
+              "speed": "25 knots",
+              "warhead": "N/A",
+              "year": "2014",
+              "status": "Active",
+              "price": "$800M"
+            }
+          ],
+          "Missile Systems": [
+            {
+              "name": "Iron Dome",
+              "image": "/images/israel-iran/iron-dome.jpg",
+              "description": "Short-range air defense system, intercepts rockets and artillery",
+              "range": "70 km",
+              "speed": "Mach 2.2",
+              "warhead": "N/A",
+              "year": "2011",
+              "status": "Active",
+              "price": "$50K/intercept"
+            },
+            {
+              "name": "Arrow 3",
+              "image": "/images/israel-iran/arrow-3.jpg",
+              "description": "Exo-atmospheric ballistic missile interceptor",
+              "range": "2,400 km",
+              "speed": "Mach 8",
+              "warhead": "N/A",
+              "year": "2017",
+              "status": "Active",
+              "price": "$3M/missile"
+            },
+            {
+              "name": "David's Sling",
+              "image": "/images/israel-iran/davids-sling.jpg",
+              "description": "Medium-range air defense for cruise and ballistic missiles",
+              "range": "300 km",
+              "speed": "Mach 7.5",
+              "warhead": "N/A",
+              "year": "2017",
+              "status": "Active",
+              "price": "$1M/missile"
+            }
+          ]
         }
       }
     ],

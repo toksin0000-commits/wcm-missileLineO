@@ -1,3 +1,15 @@
+export interface Weapon {
+  name: string;
+  image?: string;
+  description?: string;
+  range?: string;
+  speed?: string;
+  warhead?: string;
+  year?: string;
+  status?: string;
+  price?: string;
+}
+
 export interface ConflictData {
   id: string;
   name: string;
@@ -12,7 +24,7 @@ export interface ConflictData {
   arsenal?: {
     country: string;
     categories: {
-      [key: string]: string[];
+      [key: string]: Weapon[];
     };
   }[];
 }
