@@ -233,26 +233,54 @@ export default function PanelContent({ conflict, activeTab }: PanelContentProps)
       )}
 
       {activeTab === "humanitarian" && (
-        <div style={{ 
-          animation: 'fadeIn 0.4s ease-out forwards',
-          display: 'grid',
-          gridTemplateColumns: 'repeat(3, 1fr)',
-          gap: '12px',
-        }}>
-          <div style={{ backgroundColor: 'rgba(0, 242, 255, 0.05)', border: '1px solid rgba(0, 242, 255, 0.1)', padding: '12px', textAlign: 'center' }}>
-            <div style={{ fontSize: '9px', color: '#0891b2', textTransform: 'uppercase', marginBottom: '4px', fontFamily: 'monospace' }}>Refugees</div>
-            <div style={{ fontSize: '18px', color: '#00f2ff', fontWeight: 'bold' }}>{conflict.humanitarian.refugees.toLocaleString()}</div>
-          </div>
-          <div style={{ backgroundColor: 'rgba(0, 242, 255, 0.05)', border: '1px solid rgba(0, 242, 255, 0.1)', padding: '12px', textAlign: 'center' }}>
-            <div style={{ fontSize: '9px', color: '#0891b2', textTransform: 'uppercase', marginBottom: '4px', fontFamily: 'monospace' }}>IDPs</div>
-            <div style={{ fontSize: '18px', color: '#00f2ff', fontWeight: 'bold' }}>{conflict.humanitarian.idps.toLocaleString()}</div>
-          </div>
-          <div style={{ backgroundColor: 'rgba(0, 242, 255, 0.05)', border: '1px solid rgba(0, 242, 255, 0.1)', padding: '12px', textAlign: 'center' }}>
-            <div style={{ fontSize: '9px', color: '#0891b2', textTransform: 'uppercase', marginBottom: '4px', fontFamily: 'monospace' }}>Casualties</div>
-            <div style={{ fontSize: '18px', color: 'rgba(255, 0, 0, 0.8)', fontWeight: 'bold' }}>{conflict.humanitarian.civilian_casualties.toLocaleString()}</div>
-          </div>
-        </div>
-      )}
+  <div style={{ animation: 'fadeIn 0.2s ease-out forwards' }}>
+    <div style={{ 
+      display: 'flex',
+      flexDirection: 'column',
+      gap: '12px',
+    }}>
+      <div style={{ 
+        backgroundColor: 'rgba(0, 242, 255, 0.05)', 
+        border: '1px solid rgba(0, 242, 255, 0.1)', 
+        padding: '12px', 
+        textAlign: 'center',
+        animation: 'slideInFromRight 0.4s ease-out forwards',
+        animationDelay: '0.2s',
+        opacity: 0,
+        animationFillMode: 'forwards'
+      }}>
+        <div style={{ fontSize: '9px', color: '#0891b2', textTransform: 'uppercase', marginBottom: '4px', fontFamily: 'monospace' }}>Refugees</div>
+        <div style={{ fontSize: '18px', color: '#00f2ff', fontWeight: 'bold' }}>{conflict.humanitarian.refugees.toLocaleString()}</div>
+      </div>
+      <div style={{ 
+        backgroundColor: 'rgba(0, 242, 255, 0.05)', 
+        border: '1px solid rgba(0, 242, 255, 0.1)', 
+        padding: '12px', 
+        textAlign: 'center',
+        animation: 'slideInFromRight 0.4s ease-out forwards',
+        animationDelay: '0.4s',
+        opacity: 0,
+        animationFillMode: 'forwards'
+      }}>
+        <div style={{ fontSize: '9px', color: '#0891b2', textTransform: 'uppercase', marginBottom: '4px', fontFamily: 'monospace' }}>IDPs</div>
+        <div style={{ fontSize: '18px', color: '#00f2ff', fontWeight: 'bold' }}>{conflict.humanitarian.idps.toLocaleString()}</div>
+      </div>
+      <div style={{ 
+        backgroundColor: 'rgba(0, 242, 255, 0.05)', 
+        border: '1px solid rgba(0, 242, 255, 0.1)', 
+        padding: '12px', 
+        textAlign: 'center',
+        animation: 'slideInFromRight 0.4s ease-out forwards',
+        animationDelay: '0.6s',
+        opacity: 0,
+        animationFillMode: 'forwards'
+      }}>
+        <div style={{ fontSize: '9px', color: '#0891b2', textTransform: 'uppercase', marginBottom: '4px', fontFamily: 'monospace' }}>Casualties</div>
+        <div style={{ fontSize: '18px', color: 'rgba(255, 0, 0, 0.8)', fontWeight: 'bold' }}>{conflict.humanitarian.civilian_casualties.toLocaleString()}</div>
+      </div>
+    </div>
+  </div>
+)}
 
       {activeTab === "ai" && (
         <div style={{ animation: 'fadeIn 0.4s ease-out forwards', height: '320px' }}>

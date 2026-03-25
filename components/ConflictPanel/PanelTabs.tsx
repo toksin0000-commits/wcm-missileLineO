@@ -1,5 +1,6 @@
 "use client";
 
+import { useRef, useEffect } from "react";
 import PanelContent from "./PanelContent";
 import { ConflictData } from "./types";
 
@@ -18,6 +19,18 @@ export default function PanelTabs({ conflict, activeTab, onTabChange }: PanelTab
     { id: "ai", label: "Tactical AI" },
   ];
 
+  const activeButtonRef = useRef<HTMLButtonElement>(null);
+
+  useEffect(() => {
+    if (activeButtonRef.current) {
+      activeButtonRef.current.scrollIntoView({
+        behavior: 'smooth',
+        block: 'center',
+        inline: 'center'
+      });
+    }
+  }, [activeTab]);
+
   return (
     <>
       <div style={{
@@ -35,6 +48,7 @@ export default function PanelTabs({ conflict, activeTab, onTabChange }: PanelTab
         {tabs.map((t) => (
           <button
             key={t.id}
+            ref={activeTab === t.id ? activeButtonRef : null}
             onClick={() => onTabChange(t.id)}
             style={{
               flex: '0 0 auto',
