@@ -23,7 +23,6 @@ export default function AIChat({ conflictId }: { conflictId: string }) {
     setLoading(true);
 
     try {
-      // 🔥 OPRAVENO: správná cesta na backend
       const res = await fetch(`/api/chat`, {
         method: "POST",
         body: JSON.stringify({
@@ -34,13 +33,13 @@ export default function AIChat({ conflictId }: { conflictId: string }) {
 
       const data = await res.json();
 
-      // 🔥 Backend vrací { message: reply }
-      setMessages((prev) => [...prev, { role: "ai", content: data.message }]);
+      // 🔥 FIX: role musí být "assistant", ne "ai"
+      setMessages((prev) => [...prev, { role: "assistant", content: data.message }]);
 
     } catch (err) {
       setMessages((prev) => [
         ...prev,
-        { role: "ai", content: "ERROR: NEURAL LINK INTERRUPTED." },
+        { role: "assistant", content: "ERROR: NEURAL LINK INTERRUPTED." },
       ]);
     } finally {
       setLoading(false);
