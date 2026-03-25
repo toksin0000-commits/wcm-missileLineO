@@ -16,21 +16,32 @@ export default function AIChat({ conflictId }: { conflictId: string }) {
 
   const sendMessage = async () => {
     if (!input.trim()) return;
+
     const userMsg = { role: "user", content: input };
     setMessages((prev) => [...prev, userMsg]);
     setInput("");
     setLoading(true);
 
     try {
-      // Tady pak napojíš svůj endpoint /api/chat nebo ten Groq route
-      const res = await fetch(`/api/conflicts/${conflictId}/chat`, {
+      // 🔥 OPRAVENO: správná cesta na backend
+      const res = await fetch(`/api/chat`, {
         method: "POST",
-        body: JSON.stringify({ message: input }),
+        body: JSON.stringify({
+          messages,
+          conflictId,
+        }),
       });
+
       const data = await res.json();
-      setMessages((prev) => [...prev, { role: "ai", content: data.reply }]);
+
+      // 🔥 Backend vrací { message: reply }
+      setMessages((prev) => [...prev, { role: "ai", content: data.message }]);
+
     } catch (err) {
-      setMessages((prev) => [...prev, { role: "ai", content: "ERROR: NEURAL LINK INTERRUPTED." }]);
+      setMessages((prev) => [
+        ...prev,
+        { role: "ai", content: "ERROR: NEURAL LINK INTERRUPTED." },
+      ]);
     } finally {
       setLoading(false);
     }
@@ -50,23 +61,27 @@ export default function AIChat({ conflictId }: { conflictId: string }) {
             [ Waiting for uplink... ]
           </div>
         )}
-        
+
         {messages.map((m, i) => (
           <div
             key={i}
             className={`bubble ${
-              m.role === "user" 
-                ? "bg-cyan-950/40 border border-cyan-500/30 text-cyan-100 ml-auto rounded-none rounded-tl-xl" 
+              m.role === "user"
+                ? "bg-cyan-950/40 border border-cyan-500/30 text-cyan-100 ml-auto rounded-none rounded-tl-xl"
                 : "bg-gray-900/60 border border-gray-700 text-gray-300 mr-auto rounded-none rounded-br-xl"
             } p-3 max-w-[85%] relative`}
           >
-            <div className={`text-[8px] uppercase mb-1 opacity-50 ${m.role === "user" ? "text-right" : "text-left"}`}>
+            <div
+              className={`text-[8px] uppercase mb-1 opacity-50 ${
+                m.role === "user" ? "text-right" : "text-left"
+              }`}
+            >
               {m.role === "user" ? "Authorized User" : "Core Intelligence"}
             </div>
             {m.content}
           </div>
         ))}
-        
+
         {loading && (
           <div className="text-cyan-500 animate-pulse text-[10px] uppercase">
             [ Decrypting incoming data stream... ]
