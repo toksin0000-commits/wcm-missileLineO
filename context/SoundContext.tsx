@@ -26,14 +26,14 @@ export function SoundProvider({ children }: { children: ReactNode }) {
   const [isMuted, setIsMuted] = useState(false);
   
   const click = useSound("click", { volume: 0.3 });
-  const mapZoom = useSound("map-zoom", { volume: 0.4 });
-  const globalAmbience = useSound("global-ambience", { volume: 0.2, loop: true });
-  const battleAmbience = useSound("battle-ambience", { volume: 0.5, loop: true });
-  const panelAmbience = useSound("panel-ambience", { volume: 0.3, loop: true });
+  const mapZoom = useSound("map-zoom", { volume: 0.3 });
+  const globalAmbience = useSound("global-ambience", { volume: 0.5, loop: true });
+  const battleAmbience = useSound("battle-ambience", { volume: 0.4, loop: true });
+  const panelAmbience = useSound("panel-ambience", { volume: 0.4, loop: true });
   const panelOpen = useSound("panel-open", { volume: 0.4 });
   const panelClose = useSound("panel-close", { volume: 0.4 });
   const conflictSelect = useSound("conflict-select", { volume: 0.5 });
-  const tabSwitch = useSound("tab-switch", { volume: 0.25 });
+  const tabSwitch = useSound("tab-switch", { volume: 0.3 });
 
   const toggleMute = useCallback(() => {
     setIsMuted((prev) => !prev);
