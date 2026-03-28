@@ -1,5 +1,7 @@
 "use client";
 
+import { useSoundContext } from "@/context/SoundContext";
+
 interface ArsenalGroup {
   country: string;
   categories: Record<string, any[]>;
@@ -17,7 +19,16 @@ export default function PanelContentArsenal({
   onToggleWeapon 
 }: PanelContentArsenalProps) {
   
+  const { playClick } = useSoundContext();
+
   if (!arsenal) return null;
+
+  const handleToggleWeapon = (weaponId: string, weaponData: any) => {
+    if (weaponData) {
+      playClick();
+      onToggleWeapon(weaponId);
+    }
+  };
 
   return (
     <div style={{ 
@@ -51,7 +62,7 @@ export default function PanelContentArsenal({
                   return (
                     <div key={idx}>
                       <div 
-                        onClick={() => weaponData && onToggleWeapon(weaponId)}
+                        onClick={() => handleToggleWeapon(weaponId, weaponData)}
                         style={{ 
                           fontSize: '11px', 
                           color: 'white', 

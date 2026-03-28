@@ -4,10 +4,13 @@ import { useState, useEffect } from "react";
 import conflicts from "@/data/conflicts.json";
 import PanelTabs from "./PanelTabs";
 import { ConflictData, ConflictPanelProps } from "./types";
+import { useSoundContext } from "@/context/SoundContext";
 
 export default function ConflictPanel({ conflictId, onClose, isOpen }: ConflictPanelProps) {
   const [activeTab, setActiveTab] = useState("context");
   const [panelOpacity, setPanelOpacity] = useState(0);
+  
+  const { playClick, playPanelClose } = useSoundContext();
   
   const conflict = conflicts.find((c) => c.id === conflictId) as ConflictData | undefined;
 
@@ -26,6 +29,12 @@ export default function ConflictPanel({ conflictId, onClose, isOpen }: ConflictP
       setActiveTab("context");
     }
   }, [conflictId]);
+
+  const handleClose = () => {
+    playClick();
+    playPanelClose();
+    onClose();
+  };
 
   return (
     <div 
@@ -49,7 +58,7 @@ export default function ConflictPanel({ conflictId, onClose, isOpen }: ConflictP
       }}
     >
       <button 
-        onClick={onClose}
+        onClick={handleClose}
         style={{
           position: 'absolute',
           top: '20px',

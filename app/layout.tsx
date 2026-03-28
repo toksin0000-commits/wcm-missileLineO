@@ -1,6 +1,7 @@
 import "./globals.css";
-import "leaflet/dist/leaflet.css";   // ← TADY JE TEN KRITICKÝ IMPORT
+import "leaflet/dist/leaflet.css";
 import type { Metadata } from "next";
+import { SoundProvider } from "@/context/SoundContext";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -14,7 +15,11 @@ export default function RootLayout({
 }) {
   return (
     <html lang="cs">
-      <body>{children}</body>
+      <body>
+        <SoundProvider>
+          {children}
+        </SoundProvider>
+      </body>
     </html>
   );
 }

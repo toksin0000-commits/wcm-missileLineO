@@ -8,6 +8,7 @@ import "leaflet/dist/leaflet.css";
 import MapController from "./MapController";
 import AttackLines from "./AttackLines";
 import ConflictCountries from "./ConflictCountries";
+import { useSoundContext } from "@/context/SoundContext";
 
 export type ConflictId = "ukraine" | "israel-iran" | null;
 
@@ -25,24 +26,52 @@ export default function Map({
   const [showAttacks, setShowAttacks] = useState(false);
   const [showBorders, setShowBorders] = useState(false);
   const [panelOpen, setPanelOpen] = useState(false);
-
   const [zoom, setZoom] = useState(2);
   const mapRef = useRef<any>(null);
+  
+  const { 
+    playClick, 
+    playPanelOpen, 
+    playPanelClose, 
+    playGlobalAmbience,
+    stopGlobalAmbience,
+    playBattleAmbience, 
+    stopBattleAmbience,
+    playPanelAmbience,
+    stopPanelAmbience
+  } = useSoundContext();
 
   const COLORS = { UKR_RUS: "#FF0000", ISR_IRN: "#FF00FF" };
+
+  // Spuštění globálního ambientu při načtení
+  useEffect(() => {
+    playGlobalAmbience();
+    return () => {
+      stopGlobalAmbience();
+    };
+  }, [playGlobalAmbience, stopGlobalAmbience]);
 
   const handleArrival = useCallback(() => {
     setShowAttacks(true);
     setShowBorders(true);
-  }, []);
+    // Po přiblížení - zastavíme globální ambient, spustíme battle-ambience (jen pokud není otevřený panel)
+    stopGlobalAmbience();
+    if (!panelOpen) {
+      playBattleAmbience();
+    }
+  }, [panelOpen, stopGlobalAmbience, playBattleAmbience]);
 
   useEffect(() => {
     if (!selectedId) {
       setShowAttacks(false);
       setShowBorders(false);
       setPanelOpen(false);
+      stopBattleAmbience();
+      stopPanelAmbience();
+      // Vrátíme se na globální mapu - spustíme globální ambient
+      playGlobalAmbience();
     }
-  }, [selectedId]);
+  }, [selectedId, stopBattleAmbience, stopPanelAmbience, playGlobalAmbience]);
 
   useEffect(() => {
     const map = mapRef.current;
@@ -56,14 +85,45 @@ export default function Map({
     };
   }, [mapRef.current]);
 
+  const handleSelectConflict = (id: ConflictId) => {
+    playClick();
+    onSelectConflict(id);
+  };
+
+  const handleOpenPanel = () => {
+    playClick();
+    playPanelOpen();
+    setPanelOpen(true);
+    // Zastavíme battle-ambience, spustíme panel-ambience
+    stopBattleAmbience();
+    playPanelAmbience();
+    onSelectConflict(selectedId);
+  };
+
+  const handleClosePanel = () => {
+    playClick();
+    playPanelClose();
+    setPanelOpen(false);
+    // Zastavíme panel-ambience, spustíme battle-ambience (pokud je vybraný konflikt)
+    stopPanelAmbience();
+    if (selectedId && showAttacks) {
+      playBattleAmbience();
+    }
+    onSelectConflict(null);
+  };
+
+  const handleToggleBorders = () => {
+    playClick();
+    setShowBorders(!showBorders);
+  };
+
   return (
     <div className="w-full h-full bg-[#020617] relative overflow-hidden">
 
       {showAttacks && selectedId && !panelOpen && (
         <div className="absolute top-5 right-5 z-9999 flex gap-3">
-
           <button
-            onClick={() => setShowBorders(!showBorders)}
+            onClick={handleToggleBorders}
             className={`px-4 py-2 rounded-lg text-sm font-bold uppercase tracking-wider transition-all duration-300 shadow-lg ${
               showBorders 
                 ? 'bg-blue-600 text-white hover:bg-blue-700' 
@@ -74,26 +134,24 @@ export default function Map({
           </button>
 
           <button
-            onClick={() => { onSelectConflict(null); setPanelOpen(false); }}
+            onClick={handleClosePanel}
             className="px-4 py-2 rounded-lg text-sm font-bold uppercase tracking-wider bg-gray-800 text-gray-300 hover:bg-gray-700 border border-gray-600 transition-all duration-300 shadow-lg"
           >
             GLOBAL MAP
           </button>
-
         </div>
       )}
 
-      {/* JEDNODUCHÁ TLAČÍTKA PRO VÝBĚR KONFLIKTU */}
       {zoom <= 3 && !selectedId && (
         <div className="absolute top-5 left-1/2 -translate-x-1/2 z-9999 flex flex-col gap-2 w-65">
           <button
-            onClick={() => onSelectConflict("ukraine")}
+            onClick={() => handleSelectConflict("ukraine")}
             className="w-full px-4 py-2 text-xs font-bold uppercase tracking-widest bg-slate-900 text-gray-100 border border-red-500 hover:bg-red-700 hover:border-red-500 transition-colors"
           >
             Russia-Ukraine Conflict
           </button>
           <button
-            onClick={() => onSelectConflict("israel-iran")}
+            onClick={() => handleSelectConflict("israel-iran")}
             className="w-full px-4 py-2 text-xs font-bold uppercase tracking-widest bg-slate-900 text-gray-100 border border-fuchsia-500 hover:bg-fuchsia-700 hover:border-fuchsia-500 transition-colors"
           >
             Israel-Iran Conflict
@@ -112,7 +170,6 @@ export default function Map({
           maxBoundsViscosity={1.0}
           ref={mapRef}
         >
-
           <TileLayer url="https://{s}.basemaps.cartocdn.com/rastertiles/voyager_labels_under/{z}/{x}/{y}{r}.png" />
 
           <MapController selectedId={selectedId} onAnimationComplete={handleArrival} />
@@ -131,7 +188,7 @@ export default function Map({
                   </div>`, 
                 className: "" 
               })} 
-              eventHandlers={{ click: () => { onSelectConflict("ukraine"); setPanelOpen(false); } }} 
+              eventHandlers={{ click: () => handleSelectConflict("ukraine") }} 
             />
           )}
 
@@ -147,7 +204,7 @@ export default function Map({
                   </div>`, 
                 className: "" 
               })} 
-              eventHandlers={{ click: () => { onSelectConflict("israel-iran"); setPanelOpen(false); } }} 
+              eventHandlers={{ click: () => handleSelectConflict("israel-iran") }} 
             />
           )}
 
@@ -160,10 +217,7 @@ export default function Map({
           <div className="absolute inset-0 bg-red-600/30 rounded-xl animate-ping duration-2000"></div>
           
           <button
-            onClick={() => { 
-              onSelectConflict(selectedId);
-              setPanelOpen(true);
-            }}
+            onClick={handleOpenPanel}
             className="group relative flex items-center gap-3 px-6 py-4 bg-slate-900 border border-red-900/50 rounded-xl shadow-[0_0_20px_rgba(220,38,38,0.3)] transition-all hover:border-red-500 hover:scale-105 active:scale-95 animate-pulse-slow"
           >
             <div className="flex flex-col items-start leading-tight">
@@ -208,7 +262,7 @@ export default function Map({
         }
 
         .scope-pulse-ukr { 
-          border: 2px solid ##FFF700; 
+          border: 2px solid #FFF700; 
           animation: pulse 0.8s infinite ease-out; 
         }
 
@@ -226,14 +280,11 @@ export default function Map({
         .scope-cross-h { width: 15px; height: 1px; }
         .scope-cross-v { width: 1px; height: 15px; }
 
-        /* Unified monospace font for the entire Map UI */
-.map-panel * {
-  font-family: monospace !important;
-  letter-spacing: 0.05em;
-}
-
+        .map-panel * {
+          font-family: monospace !important;
+          letter-spacing: 0.05em;
+        }
       `}</style>
-
     </div>
   );
 }

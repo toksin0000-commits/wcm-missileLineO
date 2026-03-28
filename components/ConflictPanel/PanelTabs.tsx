@@ -3,6 +3,7 @@
 import { useRef, useEffect } from "react";
 import PanelContent from "./PanelContent";
 import { ConflictData } from "./types";
+import { useSoundContext } from "@/context/SoundContext";
 
 interface PanelTabsProps {
   conflict: ConflictData;
@@ -11,6 +12,8 @@ interface PanelTabsProps {
 }
 
 export default function PanelTabs({ conflict, activeTab, onTabChange }: PanelTabsProps) {
+  const { playTabSwitch } = useSoundContext();
+  
   const tabs = [
     { id: "context", label: "Context" },
     { id: "timeline", label: "Timeline" },
@@ -31,6 +34,11 @@ export default function PanelTabs({ conflict, activeTab, onTabChange }: PanelTab
     }
   }, [activeTab]);
 
+  const handleTabChange = (tabId: string) => {
+    playTabSwitch();
+    onTabChange(tabId);
+  };
+
   return (
     <>
       <div style={{
@@ -49,7 +57,7 @@ export default function PanelTabs({ conflict, activeTab, onTabChange }: PanelTab
           <button
             key={t.id}
             ref={activeTab === t.id ? activeButtonRef : null}
-            onClick={() => onTabChange(t.id)}
+            onClick={() => handleTabChange(t.id)}
             style={{
               flex: '0 0 auto',
               padding: '0 20px',
