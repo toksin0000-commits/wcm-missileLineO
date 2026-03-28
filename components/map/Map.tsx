@@ -172,7 +172,7 @@ export default function Map({
         >
           <TileLayer url="https://{s}.basemaps.cartocdn.com/rastertiles/voyager_labels_under/{z}/{x}/{y}{r}.png" />
 
-          <MapController selectedId={selectedId} onAnimationComplete={handleArrival} />
+          <MapController selectedId={selectedId} onAnimationComplete={handleArrival} isPanelOpen={panelOpen} />
 
           <ConflictCountries selectedId={selectedId} show={showBorders} />
 
