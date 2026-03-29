@@ -26,7 +26,7 @@ export function SoundProvider({ children }: { children: ReactNode }) {
   const [isMuted, setIsMuted] = useState(false);
   
   const click = useSound("click", { volume: 0.3 });
-  const mapZoom = useSound("map-zoom", { volume: 0.3 });
+  const mapZoom = useSound("map-zoom", { volume: 0.5 });
   const globalAmbience = useSound("global-ambience", { volume: 0.5, loop: true });
   const battleAmbience = useSound("battle-ambience", { volume: 0.4, loop: true });
   const panelAmbience = useSound("panel-ambience", { volume: 0.4, loop: true });
